@@ -1,0 +1,27 @@
+A-1
+SELECT CASE WHEN Promo_Code_Used = 1 THEN 'Discount Driven Customers' ELSE 'Loyal Customers' END AS Customer_Identify, COUNT(Customer_ID) AS Total_Customers, ROUND(AVG(Previous_Purchases), 1) AS Avg_Past_Purchases, ROUND(AVG(Loyalty_Score_B), 2) AS Avg_Loyalty_Score FROM customers GROUP BY Customer_Identify;
+
+A-2
+SELECT Category, COUNT(Customer_ID) as Total_Customers, ROUND(AVG(Previous_Purchases), 1) AS Avg_Past_Purchases FROM customers WHERE Value_Tier = 'High Value' GROUP BY Category ORDER BY Total_Customers DESC;
+
+A-3
+SELECT Location, COUNT(Customer_ID) AS Total_Customers, ROUND(AVG(Previous_Purchases), 1) AS Avg_Past_Purchases FROM customers WHERE Value_Tier = 'High Value' GROUP BY Location ORDER BY Total_Customers DESC;
+
+A-4
+
+
+
+A-5
+SELECT (SELECT Location FROM customers WHERE Value_Tier = 'High Value' GROUP BY Location ORDER BY COUNT(*) DESC LIMIT 1) AS Top_Location, (SELECT Category FROM customers WHERE Value_Tier = 'High Value' GROUP BY Category ORDER BY COUNT(*) DESC LIMIT 1) AS Top_Category, (SELECT Payment_Method FROM customers WHERE Value_Tier = 'High Value' GROUP BY Payment_Method ORDER BY COUNT(*) DESC LIMIT 1) AS Top_Payment, (SELECT Shipping_Type FROM customers WHERE Value_Tier = 'High Value' GROUP BY Shipping_Type ORDER BY COUNT(*) DESC LIMIT 1) AS Top_Shipping, (SELECT Season FROM customers WHERE Value_Tier = 'High Value' GROUP BY Season ORDER BY COUNT(*) DESC LIMIT 1) AS Best_Season;
+
+A-6
+SELECT CASE WHEN Promo_Code_Used = 1 THEN 'Discount Driven Customers' ELSE 'Loyal Customers' END AS Customer_Identify, COUNT(Customer_ID) AS Total_Customers, ROUND(AVG(Previous_Purchases), 1) AS Avg_Past_Purchases, ROUND(AVG(Loyalty_Score_B), 2) AS Avg_Loyalty_Score FROM customers GROUP BY Customer_Identify;
+
+SELECT Category, Value_Tier, COUNT(Customer_ID) AS Total_Customers, ROUND(AVG(Previous_Purchases), 1) AS Avg_Repeat_Purchases FROM customers GROUP BY Category, Value_Tier ORDER BY Avg_Repeat_Purchases DESC;
+
+A-7
+SELECT Season, Category, COUNT(Customer_ID) AS Total_Customers, ROUND(AVG(Previous_Purchases), 1) AS Avg_Repeat_Purchases FROM customers GROUP BY Season, Category ORDER BY Avg_Repeat_Purchases DESC;
+
+A-8
+SELECT Location, CASE WHEN AVG(Promo_Code_Used) < 0.5 THEN 'Organic' ELSE 'Discount' END AS Demand FROM customers GROUP BY Location ORDER BY Demand;
+
